@@ -1,6 +1,6 @@
 # 🔴 Pokédex
 
-Uma Pokédex simples e interativa desenvolvida em JavaScript, utilizando a **PokéAPI** para buscar informações sobre Pokémon em tempo real.
+Uma Pokédex simples e interativa desenvolvida em JavaScript em dupla com Lucas kauan, utilizando a **PokéAPI** para buscar informações sobre Pokémon em tempo real.
 
 O projeto foi desenvolvido como atividade acadêmica com o objetivo de praticar o consumo de APIs públicas utilizando JavaScript.
 
