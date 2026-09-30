@@ -4,26 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <div id="react-root"></div>
 
-    <div class="pokedex">
-
-    <h1>Pokedex</h1>
-
-    <!-- input para pesquisar o pokemon -->
-    <input type="text" id="pokemonName" placeholder="Digite o nome do pokemon">
-    <button id="searchButton">Pesquisar</button>
-
-    <div id="pokemonResult">
-        <!-- informações do pokemon serão exibidas aqui -->
-    </div>
-
-</div>
-
-    <!-- script que vai consumir a api -->
-    <script src="ScriptPokemon.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
 
 </body>
 </html>
