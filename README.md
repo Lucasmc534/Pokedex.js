@@ -45,6 +45,10 @@ npm.cmd run build
 
 Em terminais que não bloqueiam scripts PowerShell, os comandos também podem ser executados como `npm install`, `npm test` e `npm run build`.
 
+## Publicação na Vercel
+
+O projeto usa o preset Vite, o comando `npm run build` e o diretório de saída `dist`. Na Vercel, mantenha a raiz do projeto como `./` e a branch de produção como `main`. O arquivo `vercel.json` reescreve as rotas da aplicação para `index.html`, permitindo abrir ou atualizar diretamente `/pokedex` e `/batalha`.
+
 ## Organização do código
 
 ```text
@@ -72,7 +76,7 @@ vercel.json                 Fallback SPA para URLs de rota
 
 ## Conceitos para estudar
 
-- `useState`: guarda modo, formulário e estado da partida sem manipular o DOM manualmente.
+- `useState`: controla estados locais, como o formulário de pesquisa, o som e a partida. As telas são escolhidas pelo caminho atual do React Router.
 - `useEffect`: inicia o carregamento da batalha e executa cleanup se a tela for desmontada.
 - `useRef`: mantém uma instância de áudio entre renderizações sem colocá-la no estado visual.
 - Componentes: `Pokedex`, `BattleArena`, `HealthBar` e `BackgroundMusic` dividem responsabilidades de interface.
@@ -91,3 +95,8 @@ Ainda não são simulados EVs, naturezas, habilidades, itens, clima, troca de Po
 ## Testes
 
 Os testes do motor usam valores aleatórios controlados para que a mesma regra produza resultados repetíveis. Isso permite verificar fórmulas e turnos sem depender da PokéAPI ou do navegador.
+
+## Programado por
+
+- Lucas Cordeiro
+- Lucas Kauan
