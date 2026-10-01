@@ -1,66 +1,67 @@
 import { useState } from 'react';
+import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import BattleArena from './components/BattleArena.jsx';
 import BackgroundMusic from './components/BackgroundMusic';
 import Pokedex from './components/Pokedex.jsx';
 
+const musicByPath = {
+  '/': '/audio/menu-theme.mp3',
+  '/pokedex': '/audio/pokedex-theme.mp3.mp3',
+  '/batalha': '/audio/batlle-theme.mp3'
+};
+
+function BackToMenu({ children }) {
+  return (
+    <>
+      <Link className="button-link page-back" to="/">
+        &larr; Voltar ao menu
+      </Link>
+      {children}
+    </>
+  );
+}
+
 export default function App() {
-  // Estado da navegação: cada modo escolhe uma tela e sua respectiva música.
-  const [mode, setMode] = useState('menu');
+  // O Router fornece o caminho atual; não duplicamos a navegação em useState.
+  const { pathname } = useLocation();
   // Começar sem áudio respeita a política de autoplay dos navegadores.
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const currentMusic = musicByPath[pathname] ?? musicByPath['/'];
 
-  // Centralizar os caminhos facilita trocar uma faixa sem alterar o componente de áudio.
-    const musicByMode = {
-      menu: '/audio/menu-theme.mp3',
-      pokedex: '/audio/pokedex-theme.mp3.mp3',
-      battle: '/audio/batlle-theme.mp3'
-    };
+  return (
+    <div className="app-container">
+      {/* A música acompanha a rota ativa, e o controle permanece disponível em todas as telas. */}
+      <BackgroundMusic
+        audioSrc={currentMusic}
+        isPlaying={soundEnabled}
+        volume={0.2}
+      />
 
-    return (
-        <div className="app-container">
+      <button
+        className="sound-toggle-btn"
+        aria-pressed={soundEnabled}
+        onClick={() => setSoundEnabled((enabled) => !enabled)}
+      >
+        {soundEnabled ? '🔊 Som ON' : '🔇Som OFF'}
+      </button>
 
-            {/* A música acompanha o modo ativo, enquanto o botão controla o volume globalmente. */}
-            <BackgroundMusic
-              audioSrc={musicByMode[mode]}
-              isPlaying={soundEnabled}
-              volume={0.2}
-            />
-
-            {/* Botão global on/off */}
-            <button
-              className="sound-toggle-btn"
-              aria-pressed={soundEnabled}
-              onClick={() => setSoundEnabled((enabled) => !enabled)}
-              >
-                {soundEnabled ? '🔊 Som ON' : '🔇Som OFF'}
-              </button>
-
-              {/* Telas do jogo */}
-              {mode === 'menu' && (
-                <div className="menu-container">
-                    <h1>Escolha o seu Modo</h1>
-                    <button onClick={() => setMode('pokedex')}> Abrir Pokédex</button>
-                    <button onClick={() => {setMode('battle'); setSoundEnabled(true); }}>Batalha Aleatória</button>
-                    </div>
-              )}
-
-              {mode === 'pokedex' && (
-                <>
-                  <button onClick={() => setMode('menu')} style={{ marginBottom: '20px' }}>
-                    &larr; Voltar ao menu
-                  </button>
-                  <Pokedex />
-                </>
-              )}
-
-              {mode === 'battle' && (
-                <>
-                <button onClick={() => setMode('menu')} style={{ marginBottom: '20px' }}>
-                    &larr; Voltar ao Menu
-                </button>
-                <BattleArena />
-                </>
-              )}
-        </div>
-    );
+      <Routes>
+        <Route
+          path="/"
+          element={(
+            <main className="menu-container">
+              <h1>Escolha o seu Modo</h1>
+              <Link className="button-link" to="/pokedex">Abrir Pokédex</Link>
+              <Link className="button-link" to="/batalha" onClick={() => setSoundEnabled(true)}>
+                Batalha Aleatória
+              </Link>
+            </main>
+          )}
+        />
+        <Route path="/pokedex" element={<BackToMenu><Pokedex /></BackToMenu>} />
+        <Route path="/batalha" element={<BackToMenu><BattleArena /></BackToMenu>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </div>
+  );
 }

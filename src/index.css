@@ -35,6 +35,27 @@ button:disabled {
 	opacity: 0.55;
 }
 
+.button-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 6px;
+	padding: 10px 16px;
+	color: #fff;
+	background: #197c76;
+	font: inherit;
+	text-decoration: none;
+}
+
+.button-link:hover {
+	color: #fff;
+	background: #12645f;
+}
+
+.page-back {
+	margin-bottom: 20px;
+}
+
 .app-container {
 	min-height: 100vh;
 	padding: 72px 24px 32px;

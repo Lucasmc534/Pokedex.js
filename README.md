@@ -6,7 +6,7 @@ Projeto acadêmico para praticar React, JavaScript moderno e consumo de APIs pú
 
 - Pesquisar Pokémon por nome ou número e consultar imagem, tipos, estágio evolutivo e descrição da espécie.
 - Exibir descrições em inglês quando disponíveis; a PokéAPI não fornece uma descrição em português para todas as espécies.
-- Alternar entre menu, Pokédex e batalha, cada tela com sua própria trilha sonora.
+- Navegar por rotas próprias (`/`, `/pokedex` e `/batalha`), cada tela com sua própria trilha sonora.
 - Sortear espécies com IDs de 1 a 1025 para as batalhas.
 - Jogar batalhas no nível 50, com atributos calculados, IVs aleatórios e quatro golpes compatíveis.
 - Resolver turnos com velocidade, prioridade, categorias física/especial, precisão, tipos, STAB, críticos e efeitos suportados.
@@ -14,6 +14,7 @@ Projeto acadêmico para praticar React, JavaScript moderno e consumo de APIs pú
 ## Tecnologias
 
 - React e React DOM para componentes e estado da interface.
+- React Router para navegação SPA e URLs independentes.
 - Vite para desenvolvimento local e build de produção.
 - JavaScript modules e Fetch API para separar serviços, interface e regras.
 - PokéAPI para espécies, atributos, golpes, descrições e tipos.
@@ -48,7 +49,8 @@ Em terminais que não bloqueiam scripts PowerShell, os comandos também podem se
 
 ```text
 src/
-  App.jsx                   Navegação entre telas e seleção de música
+  App.jsx                   Rotas SPA, navegação e seleção de música
+  main.jsx                  Inicialização do React e BrowserRouter
   components/
     BackgroundMusic.jsx     Ciclo de vida do áudio
     BattleArena.jsx         Interface e estado da batalha
@@ -63,6 +65,7 @@ src/
 public/
   audio/                    Músicas e efeitos locais
   css/style.css             Estilos da Pokédex
+vercel.json                 Fallback SPA para URLs de rota
 ```
 
 `pokeService.js` converte respostas da API em dados de domínio. `battleEngine.js` não depende de React: recebe dois combatentes e os golpes escolhidos, calcula o resultado em cópias e devolve o novo estado junto do registro textual. `BattleArena.jsx` apresenta esse resultado e atualiza a tela.
